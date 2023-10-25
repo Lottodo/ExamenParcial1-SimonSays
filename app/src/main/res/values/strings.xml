@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Examen Parcial 1 - Simon Says</string>
+    <string name="logo">Simon Says Logo\n</string>
+    <string name="button1">Button No. 1</string>
+    <string name="button2">Button No. 2</string>
+    <string name="button3">Button No. 3</string>
+    <string name="button4">Button No. 4</string>
+    <string name="button5">Button No. 5</string>
+    <string name="button6">Button No. 6</string>
+    <string name="title_activity_game">GameActivity</string>
+</resources>
