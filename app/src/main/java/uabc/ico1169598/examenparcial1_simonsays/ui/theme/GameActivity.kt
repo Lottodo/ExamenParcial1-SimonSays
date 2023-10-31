@@ -30,7 +30,7 @@ import uabc.ico1169598.examenparcial1_simonsays.ui.theme.ui.theme.Juego
 
 class GameActivity : ComponentActivity() {
 
-
+//waos
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
