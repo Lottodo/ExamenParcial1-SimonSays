@@ -51,6 +51,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.raywenderlich.android.favenimate.AnimatedFavButton
 import uabc.ico1169598.examenparcial1_simonsays.ui.theme.ExamenParcial1SimonSaysTheme
 import uabc.ico1169598.examenparcial1_simonsays.ui.theme.GameActivity
 

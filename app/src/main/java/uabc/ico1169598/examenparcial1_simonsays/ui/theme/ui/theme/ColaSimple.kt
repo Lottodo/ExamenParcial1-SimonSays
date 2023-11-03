@@ -37,7 +37,9 @@ class ColaSimple<T>(max: Int) {
     }
 
     fun peek(): T? {
-        return cola[fin]
+        if (inicio != -1)
+            return cola[inicio]
+        else return null
     }
 
     val isFull: Boolean
@@ -47,5 +49,9 @@ class ColaSimple<T>(max: Int) {
 
     fun size(): Int {
         return cola.size
+    }
+
+    override fun toString(): String {
+        return cola.contentToString()
     }
 }
