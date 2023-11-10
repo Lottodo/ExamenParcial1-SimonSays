@@ -21,7 +21,7 @@ class Juego(ijugador: String, icantidadBotones: Boolean) {
         val secuencia = ColaSimple<Int>(ronda)
         secuenciaActual = secuencia
         for (i in 0..ronda) {
-            secuencia.add((1 until 4).random())
+            secuencia.add((1 until 5).random())
         }
         return secuencia
     }

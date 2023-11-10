@@ -1,9 +1,13 @@
 package uabc.ico1169598.examenparcial1_simonsays.ui.theme
 
+import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -66,11 +70,15 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import uabc.ico1169598.examenparcial1_simonsays.ui.theme.ui.theme.ColaSimple
+import uabc.ico1169598.examenparcial1_simonsays.R
 
 
 class GameActivity : ComponentActivity() {
@@ -78,6 +86,7 @@ class GameActivity : ComponentActivity() {
 //waos
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.MODE_NIGHT_NO
 
         val juego = Juego("Test",false)
 
@@ -100,28 +109,20 @@ class GameActivity : ComponentActivity() {
 }
 
 fun ColaSimpleALista(cola: ColaSimple<Int>): IntArray {
+    val colaAux = cola.clone()
     val lista = IntArray(cola.size())
-    for (i in 0..cola.size()) {
-        if (cola.isEmpty) break
-        lista[i] = cola.erase()!!
+    for (i in 0..colaAux.size()) {
+        if (colaAux.isEmpty) break
+        lista[i] = colaAux.erase()!!
     }
     return lista
 }
 
 
-fun ImprimirListaEnLog (lista: IntArray){
-    for (i in 0 until lista.size){
-        Log.d("Lista",lista[i].toString())
-    }
-}
-
-suspend fun DelayFun(timeL: Long) {
-    delay(timeL)
-}
-
 
 @Composable
 fun GameUI(juego: Juego, onLoose: () -> Unit){//juego: Juego) {
+    val context = LocalContext.current
 
     val openAlertDialog = remember { mutableStateOf(true) }
 
@@ -145,6 +146,7 @@ fun GameUI(juego: Juego, onLoose: () -> Unit){//juego: Juego) {
             transitionSpec = { tween(durationMillis = 250) },
             label = ""
         ) { if (it) 30.dp else 50.dp }
+
         paddingList[index - 1].value = padding
     }
 
@@ -183,6 +185,8 @@ fun GameUI(juego: Juego, onLoose: () -> Unit){//juego: Juego) {
                 sequence.forEach { index ->
                     currentButton = index
                     delay(buttonTime)
+
+                    playCurrentButtonSFX(context,currentButton)
                 }
                 currentButton = -1 // Reset the state after the sequence
             }
@@ -373,4 +377,33 @@ fun MinimalDialog(onDismissRequest: () -> Unit,
             )
         }
     }
+}
+
+
+fun playCurrentButtonSFX(context: Context,currentButton: Int) {
+
+    var mediaPlayer: MediaPlayer = MediaPlayer.create(context, R.raw.button1sfx)
+
+
+    when (currentButton) {
+        1 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button1sfx)
+        }
+        2 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button2sfx)
+        }
+        3 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button3sfx)
+        }
+        4 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button4sfx)
+        }
+        5 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button5sfx)
+        }
+        6 -> {
+            mediaPlayer = MediaPlayer.create(context, R.raw.button6sfx)
+        }
+    }
+    mediaPlayer.start()
 }
